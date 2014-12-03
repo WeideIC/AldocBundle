@@ -12,7 +12,7 @@ class PartsCacheResolver extends AbstractCacheResolver
             return false;
         }
 
-        return md5('type-' . $data['menucode'] . '-' . $data['typecode']);
+        return md5('parts-' . $data['menucode'] . '-' . $data['typecode']);
     }
 
     public function getCacheFilename($key)

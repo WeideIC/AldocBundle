@@ -27,7 +27,7 @@ class PartsCacheResolverTest extends \PHPUnit_Framework_TestCase
             'menucode' => 5,
             'typecode' => 1234
         );
-        $this->assertEquals(md5('type-5-1234'), $pcr->generateKey($data));
+        $this->assertEquals(md5('parts-5-1234'), $pcr->generateKey($data));
 
         $data = array(
             'typecode' => 1234
