@@ -27,5 +27,6 @@ class WeideAldocExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('weide_aldoc.customername', $config['customername']);
+        $container->setParameter('weide_aldoc.defaultmenucode', $config['defaultmenucode']);
     }
 }

@@ -25,6 +25,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('customername')
                     ->isRequired()
                 ->end()
+                ->integerNode('defaultmenucode')
+                    ->defaultValue(24)
+                ->end()
             ->end()
         ;
 

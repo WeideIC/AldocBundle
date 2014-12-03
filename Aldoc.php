@@ -8,16 +8,17 @@ use Weide\AldocBundle\CacheResolver\PartsCacheResolver;
 
 class Aldoc
 {
-    const MENUCODE = 24;
+    private $menucode;
     private $tcr;
     private $pcr;
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, PartsCacheResolver $pcr, TypeCacheResolver $tcr)
     {
-        $this->tcr = new TypeCacheResolver();
-        $this->pcr = new PartsCacheResolver();
+        $this->tcr = $tcr;
+        $this->pcr = $pcr;
         $this->container = $container;
+        $this->menucode = $this->container->getParameter('weide_aldoc.defaultmenucode');
     }
 
     /**
@@ -45,11 +46,11 @@ class Aldoc
             $type->modelcode =  (int)    $t->modelcode;
             $type->model =      (string) $t->model;
             $type->modelrem =   (string) $t->modrem;
-            $type->year_start = (int)    substr((string) $t->modbegin, 2);
-            $type->year_end =   (int)    substr((string) $t->einde, 2);
-            $type->typecode =   (int)    $t->typecode;
+            $type->yearStart = (int)    substr((string) $t->modbegin, 2);
+            $type->yearEnd =   (int)    substr((string) $t->einde, 2);
+            $type->typeCode =   (int)    $t->typecode;
             $type->type =       (string) $t->type;
-            $type->motortype =  (string) $t->motortype;
+            $type->motorType =  (string) $t->motortype;
             $type->fuel =       (string) $t->brandstof;
             $type->power =      (int)    $t->vermogen;
             $type->power2 =     (int)    $t->vermogen2;
@@ -66,14 +67,18 @@ class Aldoc
 
     }
 
-    public function getPartsFromType($typecode)
+    public function getPartsFromType($typecode, $menucode = null)
     {
+        if(is_null($menucode))
+        {
+            $menucode = $this->menucode;
+        }
         $key = $this->pcr->generateKey(array(
             'typecode' => $typecode,
-            'menucode' => self::MENUCODE
+            'menucode' => $menucode
         ));
         if (!$this->pcr->isCached($key)) {
-            $curl = $this->constructRequest("parts", "get", array('typecode' => $typecode, 'menucode' => self::MENUCODE));
+            $curl = $this->constructRequest("parts", "get", array('typecode' => $typecode, 'menucode' => $menucode));
             $xml = new \SimpleXMLElement(curl_exec($curl));
         } else {
             $xml = new \SimpleXMLElement($this->pcr->getCached($key));
@@ -84,7 +89,7 @@ class Aldoc
         foreach($root as $p)
         {
             $part = new Part();
-            $part->art =        (int)    $p->art;
+            $part->article =        (int)    $p->art;
             $part->part =       (string) $p->part;
             $part->sup =        (string) $p->sup;
             $part->refrem =     (string) $p->refrem;
@@ -98,7 +103,7 @@ class Aldoc
         return $parts;
     }
 
-    public function getPartsFromLicensePlate($licenseplate, $catalogue = null)
+    public function getPartsFromLicensePlate($licenseplate, $menucode = null)
     {
         // Search types for license plate
         $types = $this->getTypes($licenseplate);
@@ -108,7 +113,7 @@ class Aldoc
             foreach($types as $t)
             {
                 // Search parts for this type
-                $p = $this->getPartsFromType($t->typecode, self::MENUCODE);
+                $p = $this->getPartsFromType($t->typecode, $menucode);
                 if(is_array($p))
                 {
                     foreach($p as $p2)

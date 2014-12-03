@@ -1,4 +1,8 @@
 services:
     weide_aldoc.aldoc:
         class: Weide\AldocBundle\Aldoc
-        arguments: ["@service_container"]
+        arguments: ["@service_container", "@weide_aldoc.cache_resolver.parts", "@weide_aldoc.cache_resolver.type"]
+    weide_aldoc.cache_resolver.parts:
+        class: Weide\AldocBundle\CacheResolver\PartsCacheResolver
+    weide_aldoc.cache_resolver.type:
+        class: Weide\AldocBundle\CacheResolver\TypeCacheResolver

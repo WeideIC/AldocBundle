@@ -7,7 +7,7 @@ class Part
     protected $type;
     protected $part;
     protected $sup;
-    protected $remref;
+    protected $refrem;
     protected $prijs;
     protected $parent;
     protected $partcode;
