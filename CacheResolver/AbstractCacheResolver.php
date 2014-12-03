@@ -45,7 +45,7 @@ abstract class AbstractCacheResolver
             return false;
         }
 
-        @unlink($this->getCacheFilename($key));
+        return unlink($this->getCacheFilename($key));
     }
 
     abstract public function generateKey(array $data);

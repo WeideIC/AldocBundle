@@ -1,7 +1,7 @@
 <?php
 namespace Weide\AldocBundle\CacheResolver;
 
-class TypeCacheResolve extends AbstractCacheResolver
+class TypeCacheResolver extends AbstractCacheResolver
 {
     const TTL = 31536000;
 
