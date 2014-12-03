@@ -59,3 +59,6 @@ public function myAction()
     $aldoc->getPartsFromLicensePlate('08-TT-NP')
 }
 ```
+
+Please note that WeideAldocBundle maintains a cache under app/cache/prod/aldoc.
+Clearing your cache means that all requested license plates and parts need to be re-fetched.
