@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "intrepidity/licenseplate": "dev-master"
+        "intrepidity/license-plate": "dev-master"
     },
     "require-dev": {
         "symfony/framework-standard-edition": "2.3.*"
