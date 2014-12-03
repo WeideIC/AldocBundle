@@ -1,0 +1,4 @@
+services:
+    weide_aldoc.aldoc:
+        class: Weide\AldocBundle\Aldoc
+        arguments: ["@service_container"]

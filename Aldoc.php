@@ -1,5 +1,6 @@
 <?php
 namespace Weide\AldocBundle;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Weide\AldocBundle\Model\Type;
 use Weide\AldocBundle\Model\Part;
 use Weide\AldocBundle\CacheResolver\TypeCacheResolver;
@@ -10,11 +11,13 @@ class Aldoc
     const MENUCODE = 24;
     private $tcr;
     private $pcr;
+    private $container;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         $this->tcr = new TypeCacheResolver();
         $this->pcr = new PartsCacheResolver();
+        $this->container = $container;
     }
 
     /**
@@ -147,12 +150,12 @@ class Aldoc
         $url = "";
         if(strlen($kvpstring) > 0)
         {
-            $url = "http://thule.aldoc.eu/ws/thule/{$pagename}.alx?{$kvpstring}";
+            $url = "http://" . $this->container->getParameter('weide_aldoc.customername') . ".aldoc.eu/ws/" . $this->container->getParameter('weide_aldoc.customername') . "/{$pagename}.alx?{$kvpstring}";
             $curl = curl_init($url);
         }
         else
         {
-            $url = "http://thule.aldoc.eu/ws/thule/{$pagename}.alx";
+            $url = "http://" . $this->container->getParameter('weide_aldoc.customername') . ".aldoc.eu/ws/" . $this->container->getParameter('weide_aldoc.customername') . "/{$pagename}.alx";
             $curl = curl_init($url);
         }
 
