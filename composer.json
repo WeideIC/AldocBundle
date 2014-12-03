@@ -1,0 +1,27 @@
+{
+    "name": "weide/aldocbundle",
+    "type": "symfony-bundle",
+    "version" : "0.1",
+    "description": "Weide Aldoc Bundle",
+    "keywords": ["weide", "aldoc"],
+    "homepage": "https://bitbucket.org/weide/aldocbundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bart Guliker",
+            "email": "bart@weide-ic.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "intrepidity/licenseplate": "dev-master"
+    },
+    "require-dev": {
+        "symfony/framework-standard-edition": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": { "Weide\\AldodBundle": "" }
+    },
+    "minimum-stability": "stable",
+    "target-dir": "Weide/AldocBundle"
+}
