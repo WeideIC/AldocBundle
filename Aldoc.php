@@ -5,6 +5,7 @@ use Weide\AldocBundle\Model\Type;
 use Weide\AldocBundle\Model\Part;
 use Weide\AldocBundle\CacheResolver\TypeCacheResolver;
 use Weide\AldocBundle\CacheResolver\PartsCacheResolver;
+use Intrepidity\LicensePlate\DutchLicensePlate;
 
 class Aldoc
 {
@@ -28,6 +29,12 @@ class Aldoc
      */
     public function getTypes($licenseplate)
     {
+        $lp = new DutchLicensePlate($licenseplate);
+        if(!$lp->isValid())
+        {
+            throw new AldocException(AldocException::ERR_UNKNOWN_LICENSEPLATE);
+        }
+
         $key = $this->tcr->generateKey(array('licenseplate' => $licenseplate));
         if(!$this->tcr->isCached($key)) {
             $curl = $this->constructRequest("type", "get", array('kenteken' => $licenseplate));

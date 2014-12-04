@@ -52,11 +52,11 @@ Use the bundle as follows:
 public function myAction()
 {
     $aldoc = $this->get('weide_aldoc.aldoc');
-    $aldoc->getTypes('08-TT-NP') // Return types for a license plate
-    $aldoc->getPartsFromType($type) // Return part numbers for a Weide\AldocBundle\Model\Type-object
+    $aldoc->getTypes('08-TT-NP'); // Return types for a license plate
+    $aldoc->getPartsFromType($type); // Return part numbers for a Weide\AldocBundle\Model\Type-object
 
     // Or all at once:
-    $aldoc->getPartsFromLicensePlate('08-TT-NP')
+    $aldoc->getPartsFromLicensePlate('08-TT-NP');
 }
 ```
 
