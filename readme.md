@@ -1,14 +1,3 @@
-## Installation:
-
-Before the bundle can be installed you should add the custom repository to composer.json:
-
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages.weide-ic.nl"
-        }
-    ]
-
 ### Step 1) Get the bundle
 
 Add the following to your composer.json
@@ -29,7 +18,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Weide\CMS\PageBundle\WeideAldocBundle(),
+        new Weide\AldocBundle\WeideAldocBundle(),
         // ...
     );
 }
